@@ -1,0 +1,86 @@
+﻿@using Diplom.Models
+@using Diplom.HtmlHelpers
+@model ProductsListViewModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="content-page">
+    <div class="content">
+        <div class="content-fluid">
+            <div class="row mb-1">
+                <div class="col-12">
+                    <div class="page-title-box m-0">
+                        <h4 class="page-title">@Model.CurrentCategory</h4>
+                        <ol class="breadcrumb float-right m-0 p-0">
+                            @if (Model.CurrentCategory == null && Model.PrevCategory == null)
+                            {
+                                <li class="breadcrumb-item active"><a href="/Main/Index">Diplom</a></li>
+                            }
+                            else if (Model.PrevCategory == null)
+                            {
+                                <li class="breadcrumb-item"><a href="/Main/Index">Diplom</a></li>
+                                <li class="breadcrumb-item active">@Model.CurrentCategory</li>
+                            }
+                            else
+                            {
+                                <li class="breadcrumb-item"><a href="/Main/Index">Diplom</a></li>
+                                <li class="breadcrumb-item">@Html.ActionLink(Model.PrevCategory, "Index", "Main", new { category = Model.PrevCategoryUrl }, null)</li>
+                                <li class="breadcrumb-item active">@Model.CurrentCategory</li>
+                            }
+                        </ol>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-4">
+                @foreach (var item in Model.Products)
+                {
+                    <div class="col-x mb-1">
+                        <div class="card text-center">
+                            <img src="~/Content/assets/images/no-image.png" class="img-fluid" />
+                            <div class="card-body">
+                                <h4 class="card-title text-center" style="height:42px; overflow-y:hidden;">
+                                    @item.Name
+                                </h4>
+                                <p class="card-text">
+                                    @item.Description
+                                </p>
+                            </div>
+                            <ul class="list-group list-group-flush text-center">
+                                <li class="list-group-item">
+                                    <h4 class="m-0">@item.Price руб</h4>
+                                </li>
+                                <li class="list-group-item">
+                                    <button type="button" class="btn btn-success">Продажа</button>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                }
+            </div>
+            @Html.PageLinks(Model.pagingInfo, x => Url.Action("Index",
+                                    new { page = x, category = Model.CurrentCategoryUrl }))
+        </div>
+    </div>
+    <div id="modDialog" class="modal fade">
+        <div id="dialogContent" class="modal-dialog"></div>
+    </div>
+</div>
+@section scripts
+{
+    <script type="text/javascript">
+
+        $(function () {
+            $.ajaxSetup({ cache: false });
+           $(".compItem").click(function (e) {
+
+                e.preventDefault();
+                $.get(this.href, function (data) {
+                    $('#dialogContent').html(data);
+                    $('#con-close-modal').modal('show');
+                });
+            });
+        })
+    </script>
+}

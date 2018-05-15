@@ -1,0 +1,57 @@
+﻿@using Diplom.Models
+@using Domain.Entities
+@model IEnumerable<Category>
+
+@helper BuildMenu(IEnumerable<Category> model, int? parentId = null)
+{
+var items = model.Where(d => d.ParentID == parentId);
+if (items.Any())
+{
+<ul>
+    @foreach (var item in items)
+    {
+    <li class="has_sub">
+        <a href="@Url.RouteUrl(new {
+                controller = "Main",
+                action = "Index",
+                category = item.CategoryUrl,
+                page = 1
+            })" class="waves-effect waves-primary" style="display:inline-block; width:83%;">
+            <i class="ti-paint-bucket"></i> <span> @item.CategoryName </span>
+        </a>
+        <a href="javascript:void(0);" class="waves-effect waves-primary" style="width:15%;">
+            <span class="menu-arrow"></span>
+        </a>
+        @BuildSubMenu(model, item.CategoryID)
+    </li>
+    }
+</ul>
+}
+}
+@helper BuildSubMenu (IEnumerable<Category> model, int parentId)
+{
+var items = model.Where(d => d.ParentID == parentId);
+if (items.Any())
+{
+    <ul class="list-unstyled">
+        @foreach (var item in items)
+        {
+            <li>@Html.RouteLink(item.CategoryName, new
+           {
+               controller = "Main",
+               action = "Index",
+               category = item.CategoryUrl,
+               page = 1
+           })</li>
+        }
+    </ul>
+}
+}
+<div class="left side-menu m-0">
+    <div class="">
+        <!--- Divider -->
+        <div id="sidebar-menu">
+            @BuildMenu(Model)
+        </div>
+    </div>
+</div>

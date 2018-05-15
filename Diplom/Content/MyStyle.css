@@ -1,0 +1,43 @@
+﻿.single-product:hover .actions-btn > button {
+    margin-left: 145px;
+    opacity: 1;
+    display:block;
+    transform: perspective(600px) rotateX(0deg) !important;
+}
+
+.actions-btn > button:hover, .tooltip > .tooltip-inner:hover {
+    background: #ef6644 none repeat scroll 0 0;
+}
+
+.actions-btn button {
+    transition: all .4s ease 0s;
+}
+
+.actions-btn > button {
+    display: inline-block;
+    float: none;
+    opacity: 0;
+    overflow: hidden;
+    transform: perspective(600px) rotateX(90deg);
+    transform-origin: 50% 100% 0;
+    margin-right: 6px;
+    margin-top:10px;
+}
+
+.actions-btn > button, .tooltip > .tooltip-inner, .single-blog .actions-btn > span, .top-action-btn a {
+    background: #666 none repeat scroll 0 0;
+    color: #fff;
+    font-size: 15px;
+    margin-bottom: 1px;
+    text-align: center;
+    width: 35px;
+    font-weight: 600;
+    border-style:none;
+    height:35px;
+    margin-top:10px;
+}
+
+button {
+    margin-right:20px;
+    display:block;
+}
