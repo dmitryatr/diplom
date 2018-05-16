@@ -5,6 +5,9 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<div id="con-close-modal" class="modal" tabindex="-1" role="dialog" style="display:none" aria-hidden="true" aria-labelledby="label">
+    <div id="dialogContent" class="modal-dialog"></div>
+</div>
 <div class="content-page">
     <div class="content">
         <div class="content-fluid">
@@ -63,9 +66,6 @@
                                     new { page = x, category = Model.CurrentCategoryUrl }))
         </div>
     </div>
-    <div id="modDialog" class="modal fade">
-        <div id="dialogContent" class="modal-dialog"></div>
-    </div>
 </div>
 @section scripts
 {
@@ -78,7 +78,7 @@
                 e.preventDefault();
                 $.get(this.href, function (data) {
                     $('#dialogContent').html(data);
-                    $('#con-close-modal').modal('show');
+                    $('#con-close-modal').modal("show");
                 });
             });
         })

@@ -12,7 +12,7 @@ namespace Diplom.Controllers
     {
         public ActionResult Login()
         {
-            return View();
+            return PartialView();
         }
 
         [HttpPost]

@@ -487,6 +487,10 @@ body.fixed-left .side-menu.left {
   max-width:20%;
 }
 
+.modal-backdrop.in {
+  opacity: 0.5;
+}
+
 
 /*
   Responsive Menu
