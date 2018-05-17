@@ -21,5 +21,16 @@ namespace Diplom.Controllers
         {
             return View(model);
         }
+
+        public ActionResult Register()
+        {
+            return PartialView();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Register(RegisterViewModel model)
+        {
+            return View(model);
+        }
     }
 }

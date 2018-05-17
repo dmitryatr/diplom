@@ -1,16 +1,19 @@
 ﻿@using Diplom.Models
 @model LoginViewModel
 
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
 <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h4 class="modal-title" id="label">Modal Content is Responsive</h4>
+                <h4 class="modal-title" id="label">Регистрация</h4>
             </div>
             <div class="modal-body">
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="field-1" class="control-label">Name</label>
+                            @Html.LabelFor(m => m.Name, new { @class = "control-label" })
                             <input type="text" class="form-control" id="field-1" placeholder="John">
                         </div>
                     </div>
@@ -63,4 +66,4 @@
                 <button type="button" class="btn btn-info waves-effect waves-light">Save changes</button>
             </div>
         </div>
-
+}

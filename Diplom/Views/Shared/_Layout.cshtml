@@ -40,11 +40,10 @@
                         <div class="col-3">
                             <div class="row">
                                 <div class="col-9 d-flex justify-content-end">
-                                    @Html.ActionLink("Регистрация", "Login", "Account", null, new { @class = "btn btn-outline-light compItem" })
-                                    @*<button type="button" class="btn btn-outline-light" data-toggle="modal" data-target="#con-close-modal">Регистрация</button>*@
+                                    @Html.ActionLink("Регистрация", "Register", "Account", null, new { @class = "btn btn-outline-light register" })
                                 </div>
                                 <div class="col-3 d-flex justify-content-end">
-                                    <button type="button" class="btn btn-outline-light" >Вход</button>
+                                    @Html.ActionLink("Вход", "Login", "Account", null, new { @class = "btn btn-outline-light login" })
                                 </div>
                             </div>
                             @*<div class="menu-extrax topbar-custom">
