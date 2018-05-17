@@ -23,9 +23,9 @@ namespace Domain.Concrete
             get { return context.Users; }
         }
 
-        public void SaveProduct()
+        public void AddUser(User user)
         {
-            context.Products.Add(new Product());
+            context.Users.Add(user);
             context.SaveChanges();
         }
     }

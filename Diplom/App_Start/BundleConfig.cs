@@ -17,6 +17,7 @@ namespace Diplom
 
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js",
+                        "~/Scripts/jquery.unobtrusive-ajax.js",
                         //"~/Content/assets/js/jquery.min.js",
                         "~/Content/assets/js/jquery.scrollTo.min.js",
                         "~/Content/assets/js/metisMenu.min.js",

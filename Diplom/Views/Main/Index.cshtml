@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div id="con-close-modal" class="modal fade" tabindex="-1" role="dialog" style="display:none" aria-hidden="true" aria-labelledby="label">
+<div id="con-close-modal" class="modal fade" role="dialog" data-backdrop="static" aria-hidden="true" aria-labelledby="label">
     <div id="dialogContent" class="modal-dialog"></div>
 </div>
 <div class="content-page">
@@ -18,7 +18,7 @@
                         <ol class="breadcrumb float-right m-0 p-0">
                             @if (Model.CurrentCategory == null && Model.PrevCategory == null)
                             {
-                                <li class="breadcrumb-item active"><a href="/Main/Index">Diplom</a></li>
+                                <li class="breadcrumb-item">Diplom</li>
                             }
                             else if (Model.PrevCategory == null)
                             {
@@ -88,7 +88,7 @@
                     $('#dialogContent').html(data);
                     $('#con-close-modal').modal("show");
                 });
-            });
+           });
         })
     </script>
 }

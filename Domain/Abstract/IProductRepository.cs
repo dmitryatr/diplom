@@ -12,6 +12,6 @@ namespace Domain.Abstract
         IEnumerable<Product> Products { get; }
         IEnumerable<Category> Categories { get; }
         IEnumerable<User> Users { get; }
-        void SaveProduct();
+        void AddUser(User user);
     }
 }

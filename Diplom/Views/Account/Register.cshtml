@@ -1,7 +1,10 @@
 ﻿@using Diplom.Models
 @model RegisterViewModel
+@{ 
+    Html.EnableClientValidation(false);
+}
 
-@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal" }))
+@using (Ajax.BeginForm("Register", new AjaxOptions { UpdateTargetId = "dialogContent" }))
 {
     @Html.AntiForgeryToken()
     <div class="modal-content">
@@ -13,42 +16,67 @@
             <div class="form-group row">
                 @Html.LabelFor(m => m.Name, new { @class = "col-3 col-form-label" })
                 <div class="col-9">
-                    @Html.EditorFor(m => m.Name)
-                    @Html.ValidationMessageFor(m => m.Name)
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="mdi mdi-account"></i></span>
+                        </div>
+                        @Html.EditorFor(m => m.Name, new { htmlAttributes = new { @class = "form-control", placeholder = "Имя" } })
+                    </div>
+                    @Html.ValidationMessageFor(m => m.Name, null, new { @class = "text-danger" })
                 </div>
             </div>
             <div class="form-group row">
                 @Html.LabelFor(m => m.Email, new { @class = "col-3 col-form-label" })
                 <div class="col-9">
-                    @Html.EditorFor(m => m.Email)
-                    @Html.ValidationMessageFor(m => m.Email)
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="mdi mdi-email"></i></span>
+                        </div>
+                        @Html.EditorFor(m => m.Email, new { htmlAttributes = new { @class = "form-control", placeholder = "Email" } })
+                    </div>
+                    @Html.ValidationMessageFor(m => m.Email, null, new { @class = "text-danger" })
                 </div>
             </div>
             <div class="form-group row">
                 @Html.LabelFor(m => m.Password, new { @class = "col-3 col-form-label" })
                 <div class="col-9">
-                    @Html.EditorFor(m => m.Password)
-                    @Html.ValidationMessageFor(m => m.Password)
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="mdi mdi-lock"></i></span>
+                        </div>
+                        @Html.EditorFor(m => m.Password, new { htmlAttributes = new { @class = "form-control", placeholder = "Пароль" } })
+                    </div>
+                    @Html.ValidationMessageFor(m => m.Password, null, new { @class = "text-danger" })
                 </div>
             </div>
             <div class="form-group row">
                 @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-3 col-form-label" })
                 <div class="col-9">
-                    @Html.EditorFor(m => m.ConfirmPassword)
-                    @Html.ValidationMessageFor(m => m.ConfirmPassword)
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="mdi mdi-lock"></i></span>
+                        </div>
+                        @Html.EditorFor(m => m.ConfirmPassword, new { htmlAttributes = new { @class = "form-control", placeholder = "Повторите пароль" } })
+                    </div>
+                    @Html.ValidationMessageFor(m => m.ConfirmPassword, null, new { @class = "text-danger" })
                 </div>
             </div>
             <div class="form-group row">
                 @Html.LabelFor(m => m.City, new { @class = "col-3 col-form-label" })
                 <div class="col-9">
-                    @Html.EditorFor(m => m.City)
-                    @Html.ValidationMessageFor(m => m.City)
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="mdi mdi-city"></i></span>
+                        </div>
+                        @Html.EditorFor(m => m.City, new { htmlAttributes = new { @class = "form-control", placeholder = "Город", value = "Минск" } })
+                    </div>
+                    @Html.ValidationMessageFor(m => m.City, null, new { @class = "text-danger" })
                 </div>
             </div>
         </div>     
         <div class="modal-footer">
-            <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-info waves-effect waves-light">Save changes</button>
+            <button type="reset" class="btn btn-secondary waves-effect" data-dismiss="modal">Отмена</button>
+            <button type="submit" class="btn btn-primary waves-effect waves-light">Регистрация</button>
         </div>
     </div>
 }

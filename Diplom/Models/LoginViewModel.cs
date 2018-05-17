@@ -9,10 +9,10 @@ namespace Diplom.Models
     public class LoginViewModel
     {
         [Required]
-        public string Name { get; set; }
-        [Required]
         public string Email { get; set; }
+
         [Required]
+        [Display(Name = "Пароль")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
     }

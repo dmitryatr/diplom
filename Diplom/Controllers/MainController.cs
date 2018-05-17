@@ -12,7 +12,7 @@ namespace Diplom.Controllers
     public class MainController : Controller
     {
         IProductRepository repository;
-        public int pageSize = 2;
+        public int pageSize = 12;
 
         public MainController(IProductRepository r)
         {
@@ -53,17 +53,6 @@ namespace Diplom.Controllers
                 CurrentCategoryUrl = category
         };
             return View(model); 
-        }
-
-        [HttpPost]
-        public ActionResult Index()
-        {
-            if (ModelState.IsValid)
-            {
-                repository.SaveProduct();
-                return RedirectToAction("Index");
-            }
-            else return View();
         }
     }
 }
