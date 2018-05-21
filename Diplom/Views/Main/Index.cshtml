@@ -90,5 +90,11 @@
                 });
            });
         })
+        function OnSuccess(data) {
+            if (data.success == true) {
+                $('#con-close-modal').modal("hide");
+                window.location.href = "/Main/Index";
+            }
+        }
     </script>
 }

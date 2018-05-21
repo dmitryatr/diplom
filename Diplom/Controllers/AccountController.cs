@@ -29,7 +29,21 @@ namespace Diplom.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Login(LoginViewModel model)
         {
-            return View(model);
+            if (ModelState.IsValid)
+            {
+                User user = null;
+                user = repository.Users.FirstOrDefault(u => u.Email == model.Email && u.Password == model.Password);
+                if (user != null)
+                {
+                    FormsAuthentication.SetAuthCookie(user.Name, true);
+                    return Json(new { success = true });
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Пользователя с таким логином и паролем нет");
+                }
+            }
+            return PartialView(model);
         }
 
         public ActionResult Register()
@@ -44,7 +58,7 @@ namespace Diplom.Controllers
             if (ModelState.IsValid)
             {
                 User user = null;
-                //user = repository.Users.FirstOrDefault(u => u.Email == model.Email);
+                user = repository.Users.FirstOrDefault(u => u.Email == model.Email);
                 if (user == null)
                 {
                     repository.AddUser(new User
@@ -59,7 +73,7 @@ namespace Diplom.Controllers
                 if (user != null)
                 {
                     FormsAuthentication.SetAuthCookie(model.Name, true);
-                    return RedirectToAction("Index", "Main");
+                    return Json(new { success = true });
                 }
                 else
                 {
@@ -67,6 +81,12 @@ namespace Diplom.Controllers
                 }
             }
             return PartialView(model);
+        }
+
+        public ActionResult LogOut()
+        {
+            FormsAuthentication.SignOut();
+            return RedirectToAction("Index", "Main");
         }
     }
 }

@@ -4,7 +4,7 @@
     Html.EnableClientValidation(false);
 }
 
-@using (Ajax.BeginForm("Register", new AjaxOptions { UpdateTargetId = "dialogContent" }))
+@using (Ajax.BeginForm("Register", new AjaxOptions { UpdateTargetId = "dialogContent", HttpMethod = "Post", OnSuccess = "OnSuccess" }))
 {
     @Html.AntiForgeryToken()
     <div class="modal-content">
@@ -68,7 +68,7 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="mdi mdi-city"></i></span>
                         </div>
-                        @Html.EditorFor(m => m.City, new { htmlAttributes = new { @class = "form-control", placeholder = "Город", value = "Минск" } })
+                        @Html.EditorFor(m => m.City, new { htmlAttributes = new { value = "Минск", @class = "form-control", placeholder = "Город"} })
                     </div>
                     @Html.ValidationMessageFor(m => m.City, null, new { @class = "text-danger" })
                 </div>
