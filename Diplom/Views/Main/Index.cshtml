@@ -73,15 +73,16 @@
 
         $(function () {
             $.ajaxSetup({ cache: false });
-           $(".register").click(function (e) {
+           $(".modal-large").click(function (e) {
 
                 e.preventDefault();
                 $.get(this.href, function (data) {
                     $('#dialogContent').html(data);
+                    $('.modal-dialog').addClass('modal-lg');
                     $('#con-close-modal').modal("show");
                 });
             });
-            $(".login").click(function (e) {
+            $(".modal-normal").click(function (e) {
 
                 e.preventDefault();
                 $.get(this.href, function (data) {

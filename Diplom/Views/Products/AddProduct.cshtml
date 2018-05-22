@@ -1,0 +1,112 @@
+﻿@using Diplom.Models
+@model AddProductViewModel
+@{
+    Html.EnableClientValidation(false);
+}
+
+@using (Ajax.BeginForm("AddProduct", new AjaxOptions { UpdateTargetId = "dialogContent", OnSuccess = "OnSuccess" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h4 class="modal-title" id="label">Новое объявление</h4>
+        </div>
+        <div class="modal-body">
+            <div class="row mb-3">
+                <div class="col-12">
+                    @Html.LabelFor(m => m.Name)
+                    @Html.EditorFor(m => m.Name, new { htmlAttributes = new { @class = "form-control", placeholder = "Введите заголовок для объявления" } })
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-12">
+                    @Html.LabelFor(m => m.Description)
+                    @Html.TextAreaFor(m => m.Description, 5, 9, new { @class = "form-control", placeholder = "Описание товара (характеристик, состояния и прочего)" })
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-3">
+                    @Html.LabelFor(m => m.Type)
+                    <div class="custom-control custom-radio">
+                        <input type="radio" checked id="customRadio1" name="Type" class="custom-control-input">
+                        <label class="custom-control-label" for="customRadio1">Продажа</label>
+                    </div>
+                    <div class="custom-control custom-radio">
+                        <input type="radio" id="customRadio2" name="Type" class="custom-control-input">
+                        <label class="custom-control-label" for="customRadio2">Покупка</label>
+                    </div>
+                </div>
+                <div class="col-4">
+                    @Html.LabelFor(m => m.City)
+                    @Html.EditorFor(m => m.City, new { htmlAttributes = new { @class = "form-control", placeholder = "Укажите город", value = "Минск" } })
+                </div>
+                <div class="col-4 offset-1">
+                    @Html.LabelFor(m => m.State)
+                    @Html.DropDownListFor(m => m.State, new SelectList(new string[] { "Новое", "Хорошее", "С дефектами", "Сломано" }), new { @class = "custom-select" })
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-6">
+                    @Html.LabelFor(m => m.Price)
+                    @Html.EditorFor(m => m.Price, new { htmlAttributes = new { @class = "form-control", placeholder = "Укажите цену" } })
+                </div>
+                <div class="col-6">
+                    <label for="switch">Отдам даром</label>
+                    <div class="checkbox checkbox-primary checkbox-circle">
+                        <input id="switch" type="checkbox" class="js-switch">
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-3" id="payment">
+                <div class="col-12">
+                    @Html.LabelFor(m => m.Payment)
+                    <select class="sel-multiple" multiple name="Payment">
+                        <option>Наличными при встрече</option>
+                        <option>Наложенным платежом при отправке почтой</option>
+                        <option>Банковский перевод</option>
+                        <option>Электронные деньги</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-12">
+                    @Html.LabelFor(m => m.Delivery)
+                    <select class="sel-multiple2" multiple name="Delivery">
+                        <option selected>Самовывоз</option>
+                        <option selected>При встрече</option>
+                        <option>Моя доставка</option>
+                        <option>Отправка почтой</option>
+                        <option>Служба доставки</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">Отмена</button>
+            <button type="submit" class="btn btn-primary waves-effect waves-light">Добавить</button>
+        </div>
+    </div>
+    <script>
+        var elem = document.querySelector('.js-switch');
+        var init = new Switchery(elem, { color: '#28a5d4' });
+        $(document).ready(function () {
+            $('.sel-multiple').select2({
+                placeholder: "Выберите способ оплаты"
+            });
+            $('.sel-multiple2').select2({
+                placeholder: "Выберите способ доставки"
+            });
+            $('#switch').change(function () {
+                if ($(this).is(':checked')) {
+                    $('#payment').addClass('d-none');
+                }
+                else {
+                    $('#payment').removeClass('d-none');
+                }
+            })
+        });
+    </script>
+}
+
+

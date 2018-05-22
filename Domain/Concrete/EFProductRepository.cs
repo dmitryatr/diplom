@@ -28,5 +28,11 @@ namespace Domain.Concrete
             context.Users.Add(user);
             context.SaveChanges();
         }
+
+        public void AddProduct(Product product)
+        {
+            context.Products.Add(product);
+            context.SaveChanges();
+        }
     }
 }
