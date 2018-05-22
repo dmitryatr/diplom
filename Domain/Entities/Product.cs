@@ -37,6 +37,9 @@ namespace Domain.Entities
         public byte[] ImageData { get; set; }
         public string ImageMimeType { get; set; }
 
+        public int UserID { get; set; }
+        public User User { get; set; }
+
         public Category Category { get; set; }
     }
 }

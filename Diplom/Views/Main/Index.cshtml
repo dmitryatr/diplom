@@ -12,7 +12,7 @@
     <div class="content">
         <div class="content-fluid">
             <div class="row mb-1">
-                <div class="col-12">
+                <div class="col-12 p-0">
                     <div class="page-title-box m-0">
                         <h4 class="page-title">@Model.CurrentCategory</h4>
                         <ol class="breadcrumb float-right m-0 p-0">
@@ -52,7 +52,7 @@
                             </div>
                             <ul class="list-group list-group-flush text-center">
                                 <li class="list-group-item">
-                                    <h4 class="m-0">@item.Price руб</h4>
+                                    <h4 class="m-0"><span class="font-weight-normal">Цена: </span>@item.Price руб.</h4>
                                 </li>
                                 <li class="list-group-item">
                                     <button type="button" class="btn btn-success">Продажа</button>

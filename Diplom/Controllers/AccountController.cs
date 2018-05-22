@@ -69,15 +69,15 @@ namespace Diplom.Controllers
                         City = model.City
                     });
                     user = repository.Users.Where(u => u.Email == model.Email).FirstOrDefault();
-                }
-                if (user != null)
-                {
-                    FormsAuthentication.SetAuthCookie(model.Name, true);
-                    return Json(new { success = true });
+                    if (user != null)
+                    {
+                        FormsAuthentication.SetAuthCookie(model.Name, true);
+                        return Json(new { success = true });
+                    }
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Пользователь с таким логином уже существует");
+                    ModelState.AddModelError("", "Пользователь с таким email уже существует");
                 }
             }
             return PartialView(model);

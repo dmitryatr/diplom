@@ -312,7 +312,6 @@ File: Main Css
 }
 
 .side-menu.left {
-  background: #f5f5f5;
   top: 70px;
 }
 
@@ -369,14 +368,14 @@ body.fixed-left .side-menu.left {
 }
 
 #sidebar-menu ul ul a {
-  color: rgba(0, 0, 0, 0.5);
+  color: rgba(0, 0, 0, 1);
   display: block;
   padding: 10px 20px 10px 65px;
   font-size: 0.95rem;
 }
 
 #sidebar-menu ul ul a:hover {
-  color:black;
+  color:blue;
 }
 
 #sidebar-menu ul ul a i {
@@ -396,7 +395,7 @@ body.fixed-left .side-menu.left {
 }
 
 #sidebar-menu > ul > li > a {
-  color: rgba(0, 0, 0, 0.6);
+  color: rgba(0, 0, 0, 1);
   display: block;
   padding: 12px 20px;
   margin: 4px 0;
@@ -404,7 +403,7 @@ body.fixed-left .side-menu.left {
 }
 
 #sidebar-menu > ul > li > a:hover {
-  color: black;
+  color: blue;
   text-decoration: none;
 }
 
@@ -902,10 +901,6 @@ body.fixed-left .side-menu.left {
 
 .notification-list .profile-dropdown .notify-item {
   padding: 4px 20px;
-}
-
-.profile-dropdown {
-  width: 170px;
 }
 
 .profile-dropdown i {

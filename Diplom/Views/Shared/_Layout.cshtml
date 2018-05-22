@@ -34,11 +34,11 @@
                                 </a>
                             </form>
                         </div>
-                        <div class="col-1 offset-1">
-                            <button type="button" class="btn btn-dark w-100">Добавить</button>
-                        </div>
                         @if (!User.Identity.IsAuthenticated)
                         {
+                        <div class="col-1 offset-1">
+                            @Html.ActionLink("Добавить", "Login", "Account", null, new { @class = "btn btn-dark w-100 login" })
+                        </div>
                         <div class="col-3">
                             <div class="row">
                                 <div class="col-9 d-flex justify-content-end">
@@ -57,35 +57,34 @@
                         }
                         else
                         {
+                            <div class="col-1 offset-1">
+                                <a href="#" class="btn btn-dark w-100">Добавить</a>
+                            </div>
                            <div class="col-3 d-flex justify-content-end">
                                 <div class="dropdown list-inline-item notification-list">
                                     <a class="nav-link nav-user waves-effect waves-light d-flex align-items-center" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false" id="dropdownMenu" style="height:70px">
                                         <img src="~/Content/assets/images/no_photo.png" alt="user" class="rounded-circle">
                                     </a>
                                     <div class="dropdown-menu profile-dropdown" aria-labelledby="dropdownMenu">
-                                        <!-- item-->
-                                        <div class="dropdown-item noti-title">
-                                            <h4 class="text-overflow"><small>Здравствуйте, @User.Identity.Name</small> </h4>
-                                        </div>
 
                                         <!-- item-->
                                         <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                            <i class="mdi mdi-account"></i> <span>Profile</span>
+                                            <i class="mdi mdi-account"></i> <span>Мои объявления</span>
                                         </a>
 
                                         <!-- item-->
                                         <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                            <i class="mdi mdi-settings"></i> <span>Settings</span>
+                                            <i class="mdi mdi-settings"></i> <span>Настройки</span>
                                         </a>
 
                                         <!-- item-->
                                         <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                            <i class="mdi mdi-lock-open"></i> <span>Lock Screen</span>
+                                            <i class="mdi mdi-lock-open"></i> <span>Мои данные</span>
                                         </a>
 
                                         <!-- item-->
                                         <a href=@Url.Action("LogOut", "Account") class="dropdown-item notify-item">
-                                            <i class="mdi mdi-logout"></i> <span>Logout</span>
+                                            <i class="mdi mdi-logout"></i> <span>Выйти</span>
                                         </a>
                                     </div>
                                 </div>

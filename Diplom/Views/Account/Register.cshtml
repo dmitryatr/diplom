@@ -13,6 +13,7 @@
             <h4 class="modal-title" id="label">Регистрация</h4>
         </div>
         <div class="modal-body">
+            @Html.ValidationSummary(true)
             <div class="form-group row">
                 @Html.LabelFor(m => m.Name, new { @class = "col-3 col-form-label" })
                 <div class="col-9">
@@ -68,7 +69,7 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="mdi mdi-city"></i></span>
                         </div>
-                        @Html.EditorFor(m => m.City, new { htmlAttributes = new { value = "Минск", @class = "form-control", placeholder = "Город"} })
+                        @Html.EditorFor(m => m.City, new { htmlAttributes = new { value = "Минск", @class = "form-control", placeholder = "Город" } })
                     </div>
                     @Html.ValidationMessageFor(m => m.City, null, new { @class = "text-danger" })
                 </div>
