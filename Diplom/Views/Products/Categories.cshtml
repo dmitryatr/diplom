@@ -1,0 +1,40 @@
+﻿@using Diplom.Models
+@using Domain.Entities
+@model IEnumerable<Category>
+
+@helper BuildMenu(IEnumerable<Category> model, int? parentId = null)
+    {
+        var items = model.Where(d => d.ParentID == parentId);
+        if (items.Any())
+        {
+            <ul class="m-0 p-0">
+                @foreach (var item in items)
+                {
+                    <li class="has_sub">
+                        <span class="plus"><i class="fa fa-plus"></i></span>
+                        <span class="cat-name"> @item.CategoryName </span>
+                        @BuildSubMenu(model, item.CategoryID)
+                    </li>
+                }
+            </ul>
+        }
+}
+@helper BuildSubMenu(IEnumerable<Category> model, int parentId)
+    {
+        var items = model.Where(d => d.ParentID == parentId);
+        if (items.Any())
+        {
+            <ul class="d-none child m-0 p-0">
+                @foreach (var item in items)
+                {
+                <li>
+                    <span class="cat-name"> @item.CategoryName </span>
+                </li>
+                }
+            </ul>
+        }
+}
+<div class="d-none" id="categories">
+    @BuildMenu(Model)
+</div>
+

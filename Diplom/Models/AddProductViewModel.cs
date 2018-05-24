@@ -16,6 +16,10 @@ namespace Diplom.Models
         public string Name { get; set; }
 
         [Required]
+        [Display(Name = "Категория")]
+        public string Category { get; set; }
+
+        [Required]
         [Display(Name = "Описание")]
         public string Description { get; set; }
 

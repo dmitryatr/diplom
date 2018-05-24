@@ -22,6 +22,22 @@
             </div>
             <div class="row mb-3">
                 <div class="col-12">
+                    @Html.LabelFor(m => m.Category)
+                    <div class="w-100" style="position:relative;">
+                        <div class="input-group">
+                            <input class="form-control" type="text" id="input-cat" name="Category">
+                            <div class="input-group-prepend" id="arrow">
+                                <span class="input-group-text" style="border-bottom-right-radius: 0.25rem; border-top-right-radius: 0.25rem">
+                                    <i class="fa fa-sort-desc"></i>
+                                </span>
+                            </div>
+                        </div>
+                        @Html.Action("Categories", "Products")
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-12">
                     @Html.LabelFor(m => m.Description)
                     @Html.TextAreaFor(m => m.Description, 5, 9, new { @class = "form-control", placeholder = "Описание товара (характеристик, состояния и прочего)" })
                     @Html.ValidationMessageFor(m => m.Description, null, new { @class = "text-danger" })
@@ -125,7 +141,35 @@
                         $('#switch').click();
                     }
                 }
-            });            
+            });
+            $('#input-cat').click(function () {
+                $('#categories').removeClass('d-none');
+            });
+            $('#arrow').click(function () {
+                if ($('#categories').hasClass('d-none')) {
+                    $('#categories').removeClass('d-none');
+                }
+                else {
+                    $('#categories').addClass('d-none');
+
+                }
+            });
+            $('.cat-name').click(function () {
+                $('#categories').addClass('d-none');
+                $('#input-cat').val($(this).text());
+            })
+            $('.plus').click(function () {
+                if ($(this).hasClass('open-tree')) {
+                    $(this).removeClass('open-tree');
+                    $(this).siblings('.child').addClass('d-none');
+                    $(this).children().addClass('fa-plus').removeClass('fa-minus');
+                }
+                else {
+                    $(this).siblings('.child').removeClass('d-none');
+                    $(this).children().removeClass('fa-plus').addClass('fa-minus');
+                    $(this).addClass('open-tree');
+                }
+            })
         });
     </script>
 }

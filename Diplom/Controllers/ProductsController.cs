@@ -20,6 +20,12 @@ namespace Diplom.Controllers
             repository = r;
         }
 
+        public ActionResult Categories()
+        {
+            List<Category> menu = repository.Categories.ToList();
+            return PartialView(menu);
+        }
+
         public ActionResult AddProduct()
         {
             return PartialView();

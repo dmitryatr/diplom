@@ -494,6 +494,65 @@ body.fixed-left .side-menu.left {
     list-style: none;
 }
 
+#arrow:hover {
+    cursor: pointer;
+}
+
+#categories {
+  max-height: 250px;
+  position: absolute;
+  overflow-y: auto;
+  overflow-x: hidden; 
+  width: inherit;
+  z-index: 100;
+  border: 1px solid #aaa;
+  background: white;
+}
+
+#categories > ul {
+  list-style: none;
+}
+
+.cat-name {
+  display: block;
+  color: black;
+  width: 100%;
+  padding: 5px 0;
+  margin-left: 20px;
+}
+
+#categories > ul > li {
+  padding-left: 15px;
+}
+
+.cat-name:hover {
+  background-color: #3bafda;
+  cursor: pointer;
+}
+
+.plus {
+  position: relative;
+  float: left;
+  text-align: center;
+  cursor: pointer;
+  width: 30px;
+  top: 4px;
+  left: -12px;
+}
+
+#categories > ul > li:hover {
+  background-color: #f5f5f5;
+}
+
+.child {
+  list-style: none;
+}
+
+.child > li > span {
+  padding-left: 15px;
+  margin-left: 35px;
+}
+
 
 /*
   Responsive Menu

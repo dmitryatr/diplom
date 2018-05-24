@@ -87,6 +87,7 @@
                 e.preventDefault();
                 $.get(this.href, function (data) {
                     $('#dialogContent').html(data);
+                    $('.modal-dialog').removeClass('modal-lg');
                     $('#con-close-modal').modal("show");
                 });
            });
