@@ -17,7 +17,7 @@ namespace Diplom.Models
 
         [Required]
         [Display(Name = "Категория")]
-        public string Category { get; set; }
+        public string CategoryName { get; set; }
 
         [Required]
         [Display(Name = "Описание")]
