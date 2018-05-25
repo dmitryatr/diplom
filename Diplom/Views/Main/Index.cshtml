@@ -8,6 +8,7 @@
 <div id="con-close-modal" class="modal fade" role="dialog" data-backdrop="static" aria-hidden="true" aria-labelledby="label">
     <div id="dialogContent" class="modal-dialog"></div>
 </div>
+@Html.Action("Menu", "Nav")
 <div class="content-page">
     <div class="content">
         <div class="content-fluid">
@@ -63,7 +64,7 @@
                 }
             </div>
             @Html.PageLinks(Model.pagingInfo, x => Url.Action("Index",
-                                    new { page = x, category = Model.CurrentCategoryUrl }))
+                                         new { page = x, category = Model.CurrentCategoryUrl }))
         </div>
     </div>
 </div>
@@ -73,7 +74,7 @@
 
         $(function () {
             $.ajaxSetup({ cache: false });
-           $(".modal-large").click(function (e) {
+            $(".modal-large").click(function (e) {
 
                 e.preventDefault();
                 $.get(this.href, function (data) {
@@ -90,7 +91,7 @@
                     $('.modal-dialog').removeClass('modal-lg');
                     $('#con-close-modal').modal("show");
                 });
-           });
+            });
         })
         function OnSuccess(data) {
             if (data.success == true) {
