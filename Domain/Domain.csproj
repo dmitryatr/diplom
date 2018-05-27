@@ -109,13 +109,9 @@
     <Compile Include="Migrations\201804291746428_InitialCreate.Designer.cs">
       <DependentUpon>201804291746428_InitialCreate.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201805221349097_MigrateDB.cs" />
-    <Compile Include="Migrations\201805221349097_MigrateDB.Designer.cs">
-      <DependentUpon>201805221349097_MigrateDB.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805221842056_MigrateDB1.cs" />
-    <Compile Include="Migrations\201805221842056_MigrateDB1.Designer.cs">
-      <DependentUpon>201805221842056_MigrateDB1.cs</DependentUpon>
+    <Compile Include="Migrations\201805261707331_MigrateDB.cs" />
+    <Compile Include="Migrations\201805261707331_MigrateDB.Designer.cs">
+      <DependentUpon>201805261707331_MigrateDB.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -135,11 +131,8 @@
     <EmbeddedResource Include="Migrations\201804291746428_InitialCreate.resx">
       <DependentUpon>201804291746428_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805221349097_MigrateDB.resx">
-      <DependentUpon>201805221349097_MigrateDB.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805221842056_MigrateDB1.resx">
-      <DependentUpon>201805221842056_MigrateDB1.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201805261707331_MigrateDB.resx">
+      <DependentUpon>201805261707331_MigrateDB.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

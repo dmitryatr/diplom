@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity.EntityFramework;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,6 +15,7 @@ namespace Domain.Entities
         public string Password { get; set; }
         public string City { get; set; }
         public string Phone { get; set; }
+        public ICollection<Product> Products { get; set; }
 
     }
 }

@@ -14,5 +14,7 @@ namespace Domain.Abstract
         IEnumerable<User> Users { get; }
         void AddUser(User user);
         void AddProduct(Product product);
+        Product DeleteProduct(int id);
+        void SaveProduct(Product product);
     }
 }

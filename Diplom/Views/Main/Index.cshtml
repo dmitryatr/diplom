@@ -5,9 +5,6 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div id="con-close-modal" class="modal fade" role="dialog" data-backdrop="static" aria-hidden="true" aria-labelledby="label">
-    <div id="dialogContent" class="modal-dialog"></div>
-</div>
 @Html.Action("Menu", "Nav")
 <div class="content-page">
     <div class="content">
@@ -44,11 +41,13 @@
                         <div class="card text-center">
                             <img src="~/Content/assets/images/no-image.png" class="img-fluid" />
                             <div class="card-body">
-                                <h4 class="card-title text-center" style="height:42px; overflow-y:hidden;">
-                                    @item.Name
-                                </h4>
+                                <a href="@Url.Action("Details", "Products", new { id = item.ProductId})" class="waves-effect waves-primary">
+                                    <h4 class="card-title text-center" style="height:42px; overflow-y:hidden;">
+                                        @item.Name
+                                    </h4>
+                                </a>
                                 <p class="card-text">
-                                    @item.Description
+                                    @item.User.Name, @item.User.City
                                 </p>
                             </div>
                             <ul class="list-group list-group-flush text-center">
@@ -68,36 +67,3 @@
         </div>
     </div>
 </div>
-@section scripts
-{
-    <script type="text/javascript">
-
-        $(function () {
-            $.ajaxSetup({ cache: false });
-            $(".modal-large").click(function (e) {
-
-                e.preventDefault();
-                $.get(this.href, function (data) {
-                    $('#dialogContent').html(data);
-                    $('.modal-dialog').addClass('modal-lg');
-                    $('#con-close-modal').modal("show");
-                });
-            });
-            $(".modal-normal").click(function (e) {
-
-                e.preventDefault();
-                $.get(this.href, function (data) {
-                    $('#dialogContent').html(data);
-                    $('.modal-dialog').removeClass('modal-lg');
-                    $('#con-close-modal').modal("show");
-                });
-            });
-        })
-        function OnSuccess(data) {
-            if (data.success == true) {
-                $('#con-close-modal').modal("hide");
-                window.location.href = "/Main/Index";
-            }
-        }
-    </script>
-}

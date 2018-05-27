@@ -8,6 +8,8 @@ using Diplom.Models;
 using Domain.Abstract;
 using Domain.Entities;
 using Domain.Concrete;
+using Microsoft.Owin.Security;
+using System.Security.Claims;
 
 namespace Diplom.Controllers
 {
@@ -18,6 +20,14 @@ namespace Diplom.Controllers
         public AccountController(IProductRepository r)
         {
             repository = r;
+        }
+
+        private IAuthenticationManager AuthenticationManager
+        {
+            get
+            {
+                return HttpContext.GetOwinContext().Authentication;
+            }
         }
 
         public ActionResult Login()
@@ -35,12 +45,22 @@ namespace Diplom.Controllers
                 user = repository.Users.FirstOrDefault(u => u.Email == model.Email && u.Password == model.Password);
                 if (user != null)
                 {
-                    FormsAuthentication.SetAuthCookie(user.Name, true);
+                    ClaimsIdentity claim = new ClaimsIdentity("ApplicationCookie", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
+                    claim.AddClaim(new Claim(ClaimTypes.NameIdentifier, user.ID.ToString(), ClaimValueTypes.String));
+                    claim.AddClaim(new Claim(ClaimsIdentity.DefaultNameClaimType, user.Email, ClaimValueTypes.String));
+                    claim.AddClaim(new Claim("http://schemas.microsoft.com/accesscontrolservice/2010/07/claims/identityprovider",
+                        "OWIN Provider", ClaimValueTypes.String));
+
+                    AuthenticationManager.SignOut();
+                    AuthenticationManager.SignIn(new AuthenticationProperties
+                    {
+                        IsPersistent = true
+                    }, claim);
                     return Json(new { success = true });
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Пользователя с таким логином и паролем нет");
+                    ModelState.AddModelError("", "Неверный логин или пароль");
                 }
             }
             return PartialView(model);
@@ -66,12 +86,22 @@ namespace Diplom.Controllers
                         Name = model.Name,
                         Email = model.Email,
                         Password = model.Password,
-                        City = model.City
+                        City = model.City,
+                        Phone = model.Phone
                     });
                     user = repository.Users.Where(u => u.Email == model.Email).FirstOrDefault();
                     if (user != null)
                     {
-                        FormsAuthentication.SetAuthCookie(model.Name, true);
+
+                        ClaimsIdentity claim = new ClaimsIdentity("ApplicationCookie", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
+                        claim.AddClaim(new Claim(ClaimTypes.NameIdentifier, user.ID.ToString(), ClaimValueTypes.String));
+                        claim.AddClaim(new Claim(ClaimsIdentity.DefaultNameClaimType, user.Email, ClaimValueTypes.String));
+                        claim.AddClaim(new Claim("http://schemas.microsoft.com/accesscontrolservice/2010/07/claims/identityprovider",
+                            "OWIN Provider", ClaimValueTypes.String));
+                        AuthenticationManager.SignIn(new AuthenticationProperties
+                        {
+                            IsPersistent = true
+                        }, claim);
                         return Json(new { success = true });
                     }
                 }
@@ -85,8 +115,19 @@ namespace Diplom.Controllers
 
         public ActionResult LogOut()
         {
-            FormsAuthentication.SignOut();
-            return RedirectToAction("Index", "Main");
+            AuthenticationManager.SignOut();
+            return Redirect(Request.UrlReferrer.ToString());
+        }
+
+        public ActionResult Products(int id = 0)
+        {
+            ViewBag.ProductsCount = repository.Products.Where(x => x.UserID == id).Count();
+            ProductsListViewModel model = new ProductsListViewModel
+            {
+                Products = repository.Products.Where(m => m.UserID == id),
+                User = repository.Users.FirstOrDefault(m => m.ID == id)
+            };
+            return View(model);
         }
     }
 }

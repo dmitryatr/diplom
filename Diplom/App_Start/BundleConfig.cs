@@ -16,7 +16,8 @@ namespace Diplom
                         "~/Content/assets/js/popper.min.js",
                         "~/Content/assets/js/wow.min.js",
                         "~/Content/assets/js/switchery.min.js",
-                        "~/Content/assets/js/select2.min.js"));
+                        "~/Content/assets/js/select2.min.js",
+                        "~/Content/assets/js/bootstrap-inputmask.min.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/js").IncludeDirectory(
                         "~/Content/assets/js", "*.js"));

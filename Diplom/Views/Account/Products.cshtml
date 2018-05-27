@@ -1,0 +1,92 @@
+﻿@using Diplom.Models
+@using Diplom.HtmlHelpers
+@model ProductsListViewModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="container-fluid">
+    @if (TempData["message"] != null)
+    {
+        <div class="row">
+            <div class="col-12">
+                <div class="alert alert-success">@TempData["message"]</div>
+            </div>
+        </div>
+    }
+    <div class="row">
+        <div class="col-9">
+            <div class="row">
+                @foreach (var item in Model.Products)
+                {
+                    <div class="col-x mb-1">
+                        <div class="card text-center">
+                            <img src="~/Content/assets/images/no-image.png" class="img-fluid" />
+                            <div class="card-body">
+                                <a href="@Url.Action("Details", "Products", new { id = item.ProductId})" class="waves-effect waves-primary">
+                                    <h4 class="card-title text-center" style="height:42px; overflow-y:hidden;">
+                                        @item.Name
+                                    </h4>
+                                </a>
+                                <p class="card-text">
+                                    @item.User.Name, @item.User.City
+                                </p>
+                            </div>
+                            <ul class="list-group list-group-flush text-center">
+                                <li class="list-group-item">
+                                    <h4 class="m-0"><span class="font-weight-normal">Цена: </span>@item.Price руб.</h4>
+                                </li>
+                                <li class="list-group-item">
+                                    <a href="@Url.Action("Details", "Products", new { id = item.ProductId})" class="waves-effect waves-primary btn btn-success">Продажа</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="row mt-3 mb-3">
+                <div class="col-12 d-flex justify-content-center">
+                    <a href="@Url.Action("Products", "Account", new { id = Model.User.ID })">
+                        <img class="border" src="~/Content/assets/images/no_photo.png" width="100" height="100">
+                    </a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 d-flex justify-content-center">
+                    <a href="@Url.Action("Products", "Account", new { id = Model.User.ID })" style="color:black">
+                        <h3>@Model.User.Name</h3>
+                    </a>
+                </div>
+            </div>
+            <div class="row mb-5">
+                <div class="col-12 d-flex justify-content-center">
+                    <h4 class="text-muted">@Model.User.City</h4>
+                </div>
+            </div>
+            <div class="row mb-5">
+                <div class="col-12 d-flex justify-content-center">
+                    <a href="@Url.Action("Products", "Account", new { id = Model.User.ID })" class="text-dark">
+                        <h4>Объявления автора: @ViewBag.ProductsCount</h4>
+                    </a>
+                </div>
+            </div>
+            @if (Model.User.Phone != null)
+            {
+                <div class="row">
+                    <div class="col-12 d-flex justify-content-center">
+                        <h4><i class="fa fa-phone mr-2"></i>+375 (29) 199-55-75</h4>
+                    </div>
+                </div>
+            }
+            <div class="row">
+                <div class="col-12 d-flex justify-content-center">
+                    <h4><i class="mdi mdi-email mr-2"></i>@Model.User.Email</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

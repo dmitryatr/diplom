@@ -6,6 +6,12 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 using Ninject;
+using AutoMapper;
+using Domain.Entities;
+using Diplom.Models;
+using Domain.Concrete;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Diplom
 {

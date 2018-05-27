@@ -4,46 +4,50 @@ using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
+using Domain.Entities;
 
 namespace Diplom.Models
 {
-    public class AddProductViewModel
+    public class DetailsViewModel
     {
         [HiddenInput(DisplayValue = false)]
         public int ProductId { get; set; }
 
-        [Display(Name = "Тип")]
         public string Type { get; set; }
 
-        [Required]
-        [Display(Name = "Название")]
+        [Display(Name = "Исполнитель")]
         public string Name { get; set; }
 
-        [Required]
-        [Display(Name = "Категория")]
-        public string CategoryName { get; set; }
+        public int CategoryID { get; set; }
 
-        [Required]
         [Display(Name = "Описание")]
         public string Description { get; set; }
 
         [Display(Name = "Состояние")]
         public string State { get; set; }
 
-        [Required]
         [Display(Name = "Оплата")]
-        public string[] Payment { get; set; }
+        public string Payment { get; set; }
 
         [Display(Name = "Доставка")]
-        public string[] Delivery { get; set; }
+        public string Delivery { get; set; }
 
-        [Required]
-        [Display(Name = "Город")]
-        public string City { get; set; }
+        [Display(Name = "Дата обновления")]
+        public DateTime DateUpdate { get; set; }
 
-        [Required]
         [Display(Name = "Цена")]
+        [Required]
         [Range(0.01, double.MaxValue, ErrorMessage = "Пожалуйста, введите положительное значение для цены")]
         public decimal Price { get; set; }
+
+        public string City { get; set; }
+
+        public byte[] ImageData { get; set; }
+        public string ImageMimeType { get; set; }
+
+        public int UserID { get; set; }
+        public User User { get; set; }
+
+        public Category Category { get; set; }
     }
 }

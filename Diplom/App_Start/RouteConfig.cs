@@ -45,7 +45,14 @@ namespace Diplom
                 constraints: new { page = @"\d+" }
             );
 
+            routes.MapRoute(
+                name: null,
+                url: "{controller}/{action}/{id}",
+                defaults: "",
+                constraints: new { id = @"\d+" });
+
             routes.MapRoute(null, "{controller}/{action}");
+            
         }
     }
 }
