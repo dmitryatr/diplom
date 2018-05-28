@@ -63,7 +63,12 @@ namespace Domain.Concrete
                 context.Entry(product).State = EntityState.Modified;
             }
             context.SaveChanges();
+        }
 
+        public void EditUser(User user)
+        {
+            context.Entry(user).State = EntityState.Modified;
+            context.SaveChanges();
         }
     }
 }

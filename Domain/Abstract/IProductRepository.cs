@@ -17,5 +17,6 @@ namespace Domain.Abstract
         void AddProduct(Product product);
         Product DeleteProduct(int id);
         void SaveProduct(Product product);
+        void EditUser(User user);
     }
 }

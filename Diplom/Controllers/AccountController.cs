@@ -7,9 +7,10 @@ using System.Web.Security;
 using Diplom.Models;
 using Domain.Abstract;
 using Domain.Entities;
-using Domain.Concrete;
 using Microsoft.Owin.Security;
 using System.Security.Claims;
+using AutoMapper;
+using Diplom.HtmlHelpers;
 
 namespace Diplom.Controllers
 {
@@ -131,6 +132,25 @@ namespace Diplom.Controllers
                 User = repository.Users.FirstOrDefault(m => m.ID == id)
             };
             return View(model);
+        }
+
+        public PartialViewResult EditUser(int id)
+        {
+            User user = repository.Users.FirstOrDefault(m => m.ID == id);
+            Mapper.Reset();
+            Mapper.Initialize(map => map.CreateMap<User, EditUserViewModel>());
+            var model = Mapper.Map<User, EditUserViewModel>(user);
+            return PartialView("EditUser", model);
+        }
+
+        [HttpPost]
+        public ActionResult EditUser(EditUserViewModel model)
+        {
+            Mapper.Reset();
+            Mapper.Initialize(map => map.CreateMap<EditUserViewModel, User>());
+            var user = Mapper.Map<EditUserViewModel, User>(model);
+            repository.EditUser(user);
+            return Json(new { success = true, id = User.Identity.GetUserId<int>() });
         }
     }
 }

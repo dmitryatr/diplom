@@ -1,0 +1,71 @@
+﻿@using Diplom.Models
+@model EditUserViewModel
+
+
+@using (Ajax.BeginForm("EditUser", new AjaxOptions { UpdateTargetId = "dialogContent", OnSuccess = "OnSuccess" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h4 class="modal-title" id="label">Мои данные</h4>
+        </div>
+        <div class="modal-body">
+            @Html.HiddenFor(m => m.ID)
+            @Html.HiddenFor(m => m.RoleID)
+            <div class="form-group row">
+                <div class="col-6" >
+                    <div class="border" style="width:100px; height:102px;">
+                        <img class="" src="/Content/assets/images/no_photo.png" width="100" height="100">
+                    </div>
+                </div>
+                <div class="col-6">
+                    @Html.LabelFor(m => m.Name)
+                    @Html.EditorFor(m => m.Name, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-12">
+                    @Html.LabelFor(m => m.Email)
+                    @Html.EditorFor(m => m.Email, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-12">
+                    @Html.LabelFor(m => m.Phone)
+                    @Html.EditorFor(m => m.Phone, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-12">
+                    @Html.LabelFor(m => m.City)
+                    @Html.EditorFor(m => m.City, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-12">
+                    @Html.LabelFor(m => m.Password)
+                    @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-12">
+                    @Html.LabelFor(m => m.ConfirmPassword)
+                    @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">Отмена</button>
+            <button type="submit" class="btn btn-primary waves-effect waves-light">Добавить</button>
+        </div>
+    </div>
+    <script type="text/javascript">
+        $(document).ready( function() {
+            $('#Phone').attr('data-mask', '+375 (99) 999-99-99');
+        });
+    </script>
+}
+
+
+
