@@ -10,7 +10,7 @@ namespace Diplom.Models
     public class AddProductViewModel
     {
         [HiddenInput(DisplayValue = false)]
-        public int ProductId { get; set; }
+        public int? ProductId { get; set; }
 
         [Display(Name = "Тип")]
         public string Type { get; set; }

@@ -21,7 +21,12 @@ namespace Domain.Concrete
 
         public IEnumerable<User> Users
         {
-            get { return context.Users; }
+            get { return context.Users.Include("Role"); }
+        }
+
+        public IEnumerable<Role> Roles
+        {
+            get { return context.Roles; }
         }
 
         public void AddUser(User user)
@@ -56,8 +61,9 @@ namespace Domain.Concrete
             else
             {
                 context.Entry(product).State = EntityState.Modified;
-                context.SaveChanges();
             }
+            context.SaveChanges();
+
         }
     }
 }

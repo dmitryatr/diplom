@@ -8,7 +8,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Domain.Abstract;
-using Microsoft.AspNet.Identity;
+using Diplom.HtmlHelpers;
 
 namespace Diplom.Controllers
 {
@@ -30,6 +30,7 @@ namespace Diplom.Controllers
         public ActionResult Details(int id = 0)
         {
             Product product = repository.Products.FirstOrDefault(x => x.ProductId == id);
+            ViewBag.Role = User.IsInRole("admin");
             ViewBag.ProductsCount = repository.Products.Where(x => x.UserID == product.UserID).Count();
             return View(product);
         }
@@ -59,13 +60,12 @@ namespace Diplom.Controllers
                     product.Payment += item + "; ";
                 }
 
-                product.UserID = (from one_user in repository.Users
-                                  where one_user.Name == User.Identity.Name
-                                  select one_user.ID).FirstOrDefault();
+                product.UserID = User.Identity.GetUserId<int>();
                 product.CategoryID = (from one_category in repository.Categories
                                       where one_category.CategoryName == model.CategoryName
                                       select one_category.CategoryID).FirstOrDefault();
                 repository.SaveProduct(product);
+                return Json(new { success = true, id = User.Identity.GetUserId<int>() });
             }
             return PartialView(model);
         }
@@ -80,7 +80,6 @@ namespace Diplom.Controllers
                 TempData["message"] = string.Format("Объявление \"{0}\" было удалено", deletedProduct.Name);
             }
             return RedirectToAction("Products", "Account", new { id = UserId });
-            //return RedirectToAction("Products", "Account", new { id });
         }
 
         public PartialViewResult EditProduct(int id)

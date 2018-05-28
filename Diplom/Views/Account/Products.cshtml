@@ -40,6 +40,21 @@
                                 <li class="list-group-item">
                                     <a href="@Url.Action("Details", "Products", new { id = item.ProductId})" class="waves-effect waves-primary btn btn-success">Продажа</a>
                                 </li>
+                                @if (User.IsInRole("admin"))
+                                {
+                                    <li class="list-group-item">
+                                        <a href="@Url.Action("EditProduct", "Products", new { id = item.ProductId })" class="btn btn-warning waves-effect waves-primary modal-large">Редактировать</a>
+                                        @*@Html.ActionLink("Редактировать", "EditProduct", new { id = item.ProductId }, new { @class = "btn btn-warning waves-effect waves-primary modal-large" })*@
+                                    </li>
+                                    <li class="list-group-item">
+                                    @using (Html.BeginForm("DeleteProduct", "Products", FormMethod.Post))
+                                    {
+                                        @Html.Hidden("ProductId", item.ProductId)
+                                        @Html.Hidden("UserID", item.UserID)
+                                        <button type="submit" class="btn btn-danger waves-effect waves-primary">Удалить</button>
+                                    }
+                                    </li>
+                                }
                             </ul>
                         </div>
                     </div>

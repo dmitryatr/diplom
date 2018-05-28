@@ -104,6 +104,7 @@
     <Compile Include="Concrete\EFProductRepository.cs" />
     <Compile Include="Entities\Category.cs" />
     <Compile Include="Entities\Product.cs" />
+    <Compile Include="Entities\Role.cs" />
     <Compile Include="Entities\User.cs" />
     <Compile Include="Migrations\201804291746428_InitialCreate.cs" />
     <Compile Include="Migrations\201804291746428_InitialCreate.Designer.cs">

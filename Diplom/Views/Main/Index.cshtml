@@ -57,6 +57,20 @@
                                 <li class="list-group-item">
                                     <button type="button" class="btn btn-success">Продажа</button>
                                 </li>
+                                @if (User.IsInRole("admin"))
+                                {
+                                    <li class="list-group-item">
+                                        <a href="@Url.Action("EditProduct", "Products", new { id = item.ProductId })" class="btn btn-warning waves-effect waves-primary modal-large">Редактировать</a>
+                                    </li>
+                                    <li class="list-group-item">
+                                    @using (Html.BeginForm("DeleteProduct", "Products", FormMethod.Post))
+                                    {
+                                        @Html.Hidden("ProductId", item.ProductId)
+                                        @Html.Hidden("UserID", item.UserID)
+                                        <button type="submit" class="btn btn-danger waves-effect waves-primary">Удалить</button>
+                                    }
+                                    </li>
+                                }
                             </ul>
                         </div>
                     </div>

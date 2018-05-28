@@ -21,8 +21,8 @@
                 <div class="row">
                     <div class="col-6">
                         <div class="row mb-4">
-                            <div class="col-12">
-                                <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" data-interval="false">
+                            <div class="col-12 d-flex justify-content-center">
+                                <div id="carouselExampleIndicators" class="carousel slide border d-flex justify-content-center align-items-center" data-ride="carousel" data-interval="false" style="width:470px; height:472px;">
                                     <ol class="carousel-indicators">
                                         <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
                                         <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
@@ -30,13 +30,13 @@
                                     </ol>
                                     <div class="carousel-inner">
                                         <div class="carousel-item active">
-                                            <img class="border" src="~/Content/assets/images/no-photo-big.gif" width="490" height="490" alt="First slide">
+                                            <img class="img-fluid" src="~/Content/assets/images/no-photo-big.gif" width="470" height="470" alt="First slide"">
                                         </div>
                                         <div class="carousel-item">
-                                            <img class="border" src="~/Content/assets/images/no-image.png" width="430" height="430" alt="Second slide">
+                                            <img class="img-fluid" src="~/Content/assets/images/no-image.png" width="470" height="470" alt="Second slide">
                                         </div>
                                         <div class="carousel-item">
-                                            <img class="border" src="~/Content/assets/images/no-image.png" width="430" height="430" alt="Third slide">
+                                            <img class="img-fluid" src="~/Content/assets/images/no-image.png" width="470" height="470" alt="Third slide">
                                         </div>
                                     </div>
                                     <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
@@ -89,7 +89,7 @@
                         <h4><span class="text-muted"><i class="fa fa-list mr-2"></i>Описание:</span> @Model.Description</h4>
                     </div>
                 </div>
-                @if (User.Identity.IsAuthenticated && User.Identity.GetUserId<int>() == Model.UserID)
+                @if ((User.Identity.IsAuthenticated && User.Identity.GetUserId<int>() == Model.UserID) || User.IsInRole("admin"))
                 {
                 <div class="row mt-5 justify-content-end">
                     <div class="col-3">
@@ -138,7 +138,7 @@
             {
                 <div class="row">
                     <div class="col-12 d-flex justify-content-center">
-                        <h4><i class="fa fa-phone mr-2"></i>+375 (29) 199-55-75</h4>
+                        <h4><i class="fa fa-phone mr-2"></i>@Model.User.Phone</h4>
                     </div>
                 </div>
             }

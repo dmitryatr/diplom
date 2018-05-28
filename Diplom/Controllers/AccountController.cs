@@ -48,6 +48,7 @@ namespace Diplom.Controllers
                     ClaimsIdentity claim = new ClaimsIdentity("ApplicationCookie", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
                     claim.AddClaim(new Claim(ClaimTypes.NameIdentifier, user.ID.ToString(), ClaimValueTypes.String));
                     claim.AddClaim(new Claim(ClaimsIdentity.DefaultNameClaimType, user.Email, ClaimValueTypes.String));
+                    claim.AddClaim(new Claim(ClaimTypes.Role, user.Role.RoleName, ClaimValueTypes.String));
                     claim.AddClaim(new Claim("http://schemas.microsoft.com/accesscontrolservice/2010/07/claims/identityprovider",
                         "OWIN Provider", ClaimValueTypes.String));
 
@@ -87,7 +88,8 @@ namespace Diplom.Controllers
                         Email = model.Email,
                         Password = model.Password,
                         City = model.City,
-                        Phone = model.Phone
+                        Phone = model.Phone,
+                        RoleID = 2
                     });
                     user = repository.Users.Where(u => u.Email == model.Email).FirstOrDefault();
                     if (user != null)
@@ -96,6 +98,7 @@ namespace Diplom.Controllers
                         ClaimsIdentity claim = new ClaimsIdentity("ApplicationCookie", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
                         claim.AddClaim(new Claim(ClaimTypes.NameIdentifier, user.ID.ToString(), ClaimValueTypes.String));
                         claim.AddClaim(new Claim(ClaimsIdentity.DefaultNameClaimType, user.Email, ClaimValueTypes.String));
+                        claim.AddClaim(new Claim(ClaimTypes.Role, user.Role.RoleName, ClaimValueTypes.String));
                         claim.AddClaim(new Claim("http://schemas.microsoft.com/accesscontrolservice/2010/07/claims/identityprovider",
                             "OWIN Provider", ClaimValueTypes.String));
                         AuthenticationManager.SignIn(new AuthenticationProperties

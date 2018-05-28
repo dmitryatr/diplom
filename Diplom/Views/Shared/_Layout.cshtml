@@ -143,8 +143,14 @@
         })
         function OnSuccess(data) {
             if (data.success == true) {
-                $('#con-close-modal').modal("hide");
-                window.location.href = "/Main/Index";
+                if (data.id != undefined ) {
+                    $('#con-close-modal').modal("hide");
+                    window.location.href = "/Account/Products/" + data.id;
+                }
+                else {
+                    $('#con-close-modal').modal("hide");
+                    window.location.href = "/Main/Index";
+                }
             }
         }
     </script>
