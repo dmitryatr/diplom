@@ -48,8 +48,9 @@ namespace Diplom.Controllers
                 {
                     ClaimsIdentity claim = new ClaimsIdentity("ApplicationCookie", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
                     claim.AddClaim(new Claim(ClaimTypes.NameIdentifier, user.ID.ToString(), ClaimValueTypes.String));
-                    claim.AddClaim(new Claim(ClaimsIdentity.DefaultNameClaimType, user.Email, ClaimValueTypes.String));
+                    claim.AddClaim(new Claim(ClaimsIdentity.DefaultNameClaimType, user.Name, ClaimValueTypes.String));
                     claim.AddClaim(new Claim(ClaimTypes.Role, user.Role.RoleName, ClaimValueTypes.String));
+                    claim.AddClaim(new Claim(ClaimTypes.GivenName, user.ImageName, ClaimValueTypes.String));
                     claim.AddClaim(new Claim("http://schemas.microsoft.com/accesscontrolservice/2010/07/claims/identityprovider",
                         "OWIN Provider", ClaimValueTypes.String));
 
@@ -90,7 +91,8 @@ namespace Diplom.Controllers
                         Password = model.Password,
                         City = model.City,
                         Phone = model.Phone,
-                        RoleID = 2
+                        RoleID = 2,
+                        ImageName = "no_photo.png"
                     });
                     user = repository.Users.Where(u => u.Email == model.Email).FirstOrDefault();
                     if (user != null)
@@ -98,8 +100,9 @@ namespace Diplom.Controllers
 
                         ClaimsIdentity claim = new ClaimsIdentity("ApplicationCookie", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
                         claim.AddClaim(new Claim(ClaimTypes.NameIdentifier, user.ID.ToString(), ClaimValueTypes.String));
-                        claim.AddClaim(new Claim(ClaimsIdentity.DefaultNameClaimType, user.Email, ClaimValueTypes.String));
+                        claim.AddClaim(new Claim(ClaimsIdentity.DefaultNameClaimType, user.Name, ClaimValueTypes.String));
                         claim.AddClaim(new Claim(ClaimTypes.Role, user.Role.RoleName, ClaimValueTypes.String));
+                        claim.AddClaim(new Claim(ClaimTypes.GivenName, user.ImageName, ClaimValueTypes.String));
                         claim.AddClaim(new Claim("http://schemas.microsoft.com/accesscontrolservice/2010/07/claims/identityprovider",
                             "OWIN Provider", ClaimValueTypes.String));
                         AuthenticationManager.SignIn(new AuthenticationProperties
@@ -151,6 +154,22 @@ namespace Diplom.Controllers
             var user = Mapper.Map<EditUserViewModel, User>(model);
             repository.EditUser(user);
             return Json(new { success = true, id = User.Identity.GetUserId<int>() });
+        }
+
+        [HttpPost]
+        public JsonResult Upload()
+        {
+            string fileName = string.Empty;
+            foreach (string file in Request.Files)
+            {
+                var upload = Request.Files[file];
+                if (upload != null)
+                {
+                    fileName = System.IO.Path.GetFileName(upload.FileName);
+                    upload.SaveAs(Server.MapPath("~/Content/assets/photo/" + fileName));
+                }
+            }
+            return Json(new { success = true, name = fileName, path = "/Content/assets/photo/" + fileName });
         }
     }
 }

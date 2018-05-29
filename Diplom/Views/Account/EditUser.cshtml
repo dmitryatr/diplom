@@ -2,7 +2,7 @@
 @model EditUserViewModel
 
 
-@using (Ajax.BeginForm("EditUser", new AjaxOptions { UpdateTargetId = "dialogContent", OnSuccess = "OnSuccess" }))
+@using (Ajax.BeginForm("EditUser", null, new AjaxOptions { UpdateTargetId = "dialogContent", OnSuccess = "OnSuccess", HttpMethod = "Post" }, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
     <div class="modal-content">
@@ -13,10 +13,21 @@
         <div class="modal-body">
             @Html.HiddenFor(m => m.ID)
             @Html.HiddenFor(m => m.RoleID)
+            @Html.HiddenFor(m => m.ImageName)
             <div class="form-group row">
-                <div class="col-6" >
-                    <div class="border" style="width:100px; height:102px;">
-                        <img class="" src="/Content/assets/images/no_photo.png" width="100" height="100">
+                <div class="col-6">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="border d-flex justify-content-center align-items-center" style="width:100px; height:100px;">
+                                <img class="img-fluid" id="photo" src="/Content/assets/photo/@Model.ImageName" width="100" height="100">
+                            </div>
+                        </div>
+                        <div class="col-6 d-flex align-items-end">
+                            <div class="fileupload btn btn-primary waves-effect waves-light">
+                                <span>Загрузить</span>
+                                <input type="file" class="upload" id="upload" name="upload"/>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="col-6">
@@ -57,12 +68,39 @@
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">Отмена</button>
-            <button type="submit" class="btn btn-primary waves-effect waves-light">Добавить</button>
+            <button type="submit" class="btn btn-primary waves-effect waves-light">Сохранить</button>
         </div>
     </div>
     <script type="text/javascript">
-        $(document).ready( function() {
+        $(document).ready(function () {
             $('#Phone').attr('data-mask', '+375 (99) 999-99-99');
+            $('#upload').change(function (e) {
+                e.preventDefault();
+                console.log($(this).val());
+                var files = $('#upload')[0].files;
+                if (files.length > 0) {
+                    if (window.FormData !== undefined) {
+                        var data = new FormData();
+                        for (var x = 0; x < files.length; x++) {
+                            data.append("file" + x, files[x]);
+                        }
+
+                        $.ajax({
+                            type: "POST",
+                            url: '@Url.Action("Upload", "Account")',
+                            contentType: false,
+                            processData: false,
+                            data: data,
+                            success: function (result) {
+                                $('#photo').attr('src', result.path);
+                                $('#ImageName').val(result.name);
+                            }
+                        });
+                    } else {
+                        alert("Браузер не поддерживает загрузку файлов HTML5!");
+                    }
+                }
+            });
         });
     </script>
 }

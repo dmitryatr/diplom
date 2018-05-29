@@ -114,6 +114,10 @@
     <Compile Include="Migrations\201805261707331_MigrateDB.Designer.cs">
       <DependentUpon>201805261707331_MigrateDB.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201805291012514_MigrateDB1.cs" />
+    <Compile Include="Migrations\201805291012514_MigrateDB1.Designer.cs">
+      <DependentUpon>201805291012514_MigrateDB1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -134,6 +138,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201805261707331_MigrateDB.resx">
       <DependentUpon>201805261707331_MigrateDB.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805291012514_MigrateDB1.resx">
+      <DependentUpon>201805291012514_MigrateDB1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

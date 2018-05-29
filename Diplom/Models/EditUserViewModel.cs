@@ -35,5 +35,7 @@ namespace Diplom.Models
 
         [Display(Name = "Номер телефона")]
         public string Phone { get; set; }
+
+        public string ImageName { get; set; }
     }
 }

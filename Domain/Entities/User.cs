@@ -15,6 +15,7 @@ namespace Domain.Entities
         public string Password { get; set; }
         public string City { get; set; }
         public string Phone { get; set; }
+        public string ImageName { get; set; }
         public int RoleID { get; set; }
         public Role Role { get; set; }
         public ICollection<Product> Products { get; set; }
