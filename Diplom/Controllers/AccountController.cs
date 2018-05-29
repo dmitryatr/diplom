@@ -50,7 +50,6 @@ namespace Diplom.Controllers
                     claim.AddClaim(new Claim(ClaimTypes.NameIdentifier, user.ID.ToString(), ClaimValueTypes.String));
                     claim.AddClaim(new Claim(ClaimsIdentity.DefaultNameClaimType, user.Name, ClaimValueTypes.String));
                     claim.AddClaim(new Claim(ClaimTypes.Role, user.Role.RoleName, ClaimValueTypes.String));
-                    claim.AddClaim(new Claim(ClaimTypes.GivenName, user.ImageName, ClaimValueTypes.String));
                     claim.AddClaim(new Claim("http://schemas.microsoft.com/accesscontrolservice/2010/07/claims/identityprovider",
                         "OWIN Provider", ClaimValueTypes.String));
 
@@ -102,7 +101,6 @@ namespace Diplom.Controllers
                         claim.AddClaim(new Claim(ClaimTypes.NameIdentifier, user.ID.ToString(), ClaimValueTypes.String));
                         claim.AddClaim(new Claim(ClaimsIdentity.DefaultNameClaimType, user.Name, ClaimValueTypes.String));
                         claim.AddClaim(new Claim(ClaimTypes.Role, user.Role.RoleName, ClaimValueTypes.String));
-                        claim.AddClaim(new Claim(ClaimTypes.GivenName, user.ImageName, ClaimValueTypes.String));
                         claim.AddClaim(new Claim("http://schemas.microsoft.com/accesscontrolservice/2010/07/claims/identityprovider",
                             "OWIN Provider", ClaimValueTypes.String));
                         AuthenticationManager.SignIn(new AuthenticationProperties
@@ -170,6 +168,18 @@ namespace Diplom.Controllers
                 }
             }
             return Json(new { success = true, name = fileName, path = "/Content/assets/photo/" + fileName });
+        }
+
+        [HttpPost]
+        public JsonResult Delete(string name)
+        {
+            var fullPath = Request.MapPath("~/Content/assets/photo/" + name);
+            if (System.IO.File.Exists(fullPath))
+            {
+                System.IO.File.Delete(fullPath);
+                return Json(new { success = true });
+            }
+            return Json(new { success = false });
         }
     }
 }

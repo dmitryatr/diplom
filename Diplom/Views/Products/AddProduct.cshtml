@@ -40,6 +40,12 @@
             </div>
             <div class="row mb-3">
                 <div class="col-12">
+                    <div id="mydropzone" class="dropzone">
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-12">
                     @Html.LabelFor(m => m.Description)
                     @Html.TextAreaFor(m => m.Description, 5, 9, new { @class = "form-control", placeholder = "Описание товара (характеристик, состояния и прочего)" })
                     @Html.ValidationMessageFor(m => m.Description, null, new { @class = "text-danger" })
@@ -159,7 +165,7 @@
             $('.cat-name').click(function () {
                 $('#categories').addClass('d-none');
                 $('#CategoryName').val($(this).text());
-            })
+            });
             $('.plus').click(function () {
                 if ($(this).hasClass('open-tree')) {
                     $(this).removeClass('open-tree');
@@ -171,7 +177,23 @@
                     $(this).children().removeClass('fa-plus').addClass('fa-minus');
                     $(this).addClass('open-tree');
                 }
-            })
+            });
+        });
+        var myDropZone = new Dropzone('#mydropzone', { url: '/Account/Upload' });
+        myDropZone.options.addRemoveLinks = true;
+        myDropZone.options.uploadMultiple = true;
+        myDropZone.options.maxFiles = 5;
+        myDropZone.options.acceptedFiles = 'image/*';
+        myDropZone.on("removedfile", function (file) {
+            var data = { 'name': file.name };
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("Delete", "Account")',
+                data: JSON.stringify(data),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json"
+            });
+            //$('.dz-remove').last().attr('href', '/Account/Delete?name=' + $('.dz-filename').last().text());
         });
     </script>
 }

@@ -31,12 +31,14 @@
                             </button>
                         </div>
                         <div class="col-5 hide-phone">
-                            <form class="app-search" role="search">
-                                <input class="form-control w-100" type="text" placeholder="Поиск">
-                                <a href="">
+                            @using (Html.BeginForm("Search", "Products", FormMethod.Post, new { @class = "app-search" }))
+                            {
+                                <input class="form-control w-100" type="text" placeholder="Поиск" name="search">                                    
+                                <a onclick="$('#submit').click()">
                                     <i class="fa fa-search"></i>
                                 </a>
-                            </form>
+                                <button type="submit" class="d-none" id="submit"></button>
+                            }
                         </div>
                         @if (!User.Identity.IsAuthenticated)
                         {
@@ -88,7 +90,7 @@
                                     </div>
                                 </div>
                             </div>
-                        }
+                            }
                         <div class="clearfix"></div>
                     </div>
                 </div>

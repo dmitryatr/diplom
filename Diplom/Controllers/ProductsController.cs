@@ -91,5 +91,13 @@ namespace Diplom.Controllers
             model.CategoryName = product.Category.CategoryName;
             return PartialView("AddProduct", model);
         }
+
+        [HttpPost]
+        public ActionResult Search(string search)
+        {
+            ViewBag.Search = search;
+            var products = repository.Products.Where(m => m.Name.Contains(search) || m.Description.Contains(search) || m.User.City.Contains(search));
+            return View(products);
+        }
     }
 }

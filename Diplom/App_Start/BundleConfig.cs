@@ -17,7 +17,8 @@ namespace Diplom
                         "~/Content/assets/js/wow.min.js",
                         "~/Content/assets/js/switchery.min.js",
                         "~/Content/assets/js/select2.min.js",
-                        "~/Content/assets/js/bootstrap-inputmask.min.js"));
+                        "~/Content/assets/js/bootstrap-inputmask.min.js",
+                        "~/Content/assets/js/dropzone.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/js").IncludeDirectory(
                         "~/Content/assets/js", "*.js"));
@@ -35,6 +36,7 @@ namespace Diplom
                       "~/Scripts/respond.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
+                      "~/Content/assets/css/dropzone.css",
                       "~/Content/assets/css/select2.min.css",
                       "~/Content/assets/css/switchery.min.css",
                       "~/Content/assets/css/bootstrap.min.css",
