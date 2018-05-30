@@ -11,6 +11,7 @@ using Microsoft.Owin.Security;
 using System.Security.Claims;
 using AutoMapper;
 using Diplom.HtmlHelpers;
+using System.IO;
 
 namespace Diplom.Controllers
 {
@@ -96,7 +97,7 @@ namespace Diplom.Controllers
                     user = repository.Users.Where(u => u.Email == model.Email).FirstOrDefault();
                     if (user != null)
                     {
-
+                        Directory.CreateDirectory(Server.MapPath("~/Content/assets/photo/" + user.ID.ToString()));
                         ClaimsIdentity claim = new ClaimsIdentity("ApplicationCookie", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
                         claim.AddClaim(new Claim(ClaimTypes.NameIdentifier, user.ID.ToString(), ClaimValueTypes.String));
                         claim.AddClaim(new Claim(ClaimsIdentity.DefaultNameClaimType, user.Name, ClaimValueTypes.String));
@@ -163,17 +164,17 @@ namespace Diplom.Controllers
                 var upload = Request.Files[file];
                 if (upload != null)
                 {
-                    fileName = System.IO.Path.GetFileName(upload.FileName);
-                    upload.SaveAs(Server.MapPath("~/Content/assets/photo/" + fileName));
+                    fileName = Path.GetFileName(upload.FileName);
+                    upload.SaveAs(Server.MapPath("~/Content/assets/photo/" + User.Identity.GetUserId<string>() + "/" + fileName));
                 }
             }
-            return Json(new { success = true, name = fileName, path = "/Content/assets/photo/" + fileName });
+            return Json(new { success = true, name = fileName, path = "/Content/assets/photo/" + User.Identity.GetUserId<string>() + "/" + fileName });
         }
 
         [HttpPost]
         public JsonResult Delete(string name)
         {
-            var fullPath = Request.MapPath("~/Content/assets/photo/" + name);
+            var fullPath = Request.MapPath("~/Content/assets/photo/" + User.Identity.GetUserId<string>() + "/" + name);
             if (System.IO.File.Exists(fullPath))
             {
                 System.IO.File.Delete(fullPath);
