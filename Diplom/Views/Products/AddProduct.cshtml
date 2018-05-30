@@ -181,7 +181,7 @@
                 }
             });
         });
-        var myDropZone = new Dropzone('#mydropzone', { url: '/Account/Upload' });
+        var myDropZone = new Dropzone('#mydropzone', { url: '/Products/Upload' });
         myDropZone.options.addRemoveLinks = true;
         myDropZone.options.uploadMultiple = true;
         myDropZone.options.maxFiles = 5;
@@ -190,12 +190,20 @@
             var data = { 'name': file.name };
             $.ajax({
                 type: 'POST',
-                url: '@Url.Action("Delete", "Account")',
+                url: '@Url.Action("Delete", "Products")',
                 data: JSON.stringify(data),
                 contentType: "application/json; charset=utf-8",
                 dataType: "json"
             });
             //$('.dz-remove').last().attr('href', '/Account/Delete?name=' + $('.dz-filename').last().text());
+        });
+        $('.close').click(function () {
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("DeleteAll", "Products")',
+                contentType: false,
+                dataType: false
+            });
         });
     </script>
 }

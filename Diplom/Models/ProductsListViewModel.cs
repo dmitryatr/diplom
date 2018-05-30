@@ -15,5 +15,6 @@ namespace Diplom.Models
         public string PrevCategory { get; set; }
         public string CurrentCategoryUrl { get; set; }
         public string PrevCategoryUrl { get; set; }
+        public string ImageName { get; set; }
     }
 }

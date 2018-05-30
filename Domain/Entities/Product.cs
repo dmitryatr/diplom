@@ -38,8 +38,7 @@ namespace Domain.Entities
 
         public string City { get; set; }
 
-        public byte[] ImageData { get; set; }
-        public string ImageMimeType { get; set; }
+        public string ImagesName { get; set; }
 
         public int UserID { get; set; }
         public User User { get; set; }

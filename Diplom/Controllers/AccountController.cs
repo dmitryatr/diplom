@@ -98,6 +98,8 @@ namespace Diplom.Controllers
                     if (user != null)
                     {
                         Directory.CreateDirectory(Server.MapPath("~/Content/assets/photo/" + user.ID.ToString()));
+                        Directory.CreateDirectory(Server.MapPath("~/Content/assets/photo/" + user.ID.ToString() + "/ava"));
+                        System.IO.File.Copy(Server.MapPath("~/Content/assets/images/no_photo.png"), Server.MapPath("~/Content/assets/photo/" + user.ID.ToString() + "/ava/no_photo.png"));
                         ClaimsIdentity claim = new ClaimsIdentity("ApplicationCookie", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
                         claim.AddClaim(new Claim(ClaimTypes.NameIdentifier, user.ID.ToString(), ClaimValueTypes.String));
                         claim.AddClaim(new Claim(ClaimsIdentity.DefaultNameClaimType, user.Name, ClaimValueTypes.String));
@@ -152,7 +154,7 @@ namespace Diplom.Controllers
             Mapper.Initialize(map => map.CreateMap<EditUserViewModel, User>());
             var user = Mapper.Map<EditUserViewModel, User>(model);
             repository.EditUser(user);
-            return Json(new { success = true, id = User.Identity.GetUserId<int>() });
+            return Json(new { success = true, id = User.Identity.GetUserId() });
         }
 
         [HttpPost]
@@ -165,22 +167,10 @@ namespace Diplom.Controllers
                 if (upload != null)
                 {
                     fileName = Path.GetFileName(upload.FileName);
-                    upload.SaveAs(Server.MapPath("~/Content/assets/photo/" + User.Identity.GetUserId<string>() + "/" + fileName));
+                    upload.SaveAs(Server.MapPath("~/Content/assets/photo/" + User.Identity.GetUserId().ToString() + "/ava/" + fileName));
                 }
             }
-            return Json(new { success = true, name = fileName, path = "/Content/assets/photo/" + User.Identity.GetUserId<string>() + "/" + fileName });
-        }
-
-        [HttpPost]
-        public JsonResult Delete(string name)
-        {
-            var fullPath = Request.MapPath("~/Content/assets/photo/" + User.Identity.GetUserId<string>() + "/" + name);
-            if (System.IO.File.Exists(fullPath))
-            {
-                System.IO.File.Delete(fullPath);
-                return Json(new { success = true });
-            }
-            return Json(new { success = false });
+            return Json(new { success = true, name = fileName, path = "/Content/assets/photo/" + User.Identity.GetUserId().ToString() + "/ava/" + fileName });
         }
     }
 }

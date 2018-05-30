@@ -484,6 +484,9 @@ body.fixed-left .side-menu.left {
   -ms-flex:0 0 20%;
   flex:0 0 20%;
   max-width:20%;
+  position: relative;
+  width: 100%;
+  min-height: 1px;
 }
 
 .validation-summary-errors {

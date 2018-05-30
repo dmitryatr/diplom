@@ -9,22 +9,23 @@ namespace Diplom.HtmlHelpers
 {
     public static class IdentityExtensions
     {
-        public static T GetUserId<T>(this IIdentity identity) where T : IConvertible
+        public static int GetUserId(this IIdentity identity)
         {
             if (identity == null)
             {
                 throw new ArgumentNullException("identity");
             }
             var ci = identity as ClaimsIdentity;
+            int ID = 0;
             if (ci != null)
             {
                 var id = ci.FindFirst(ClaimTypes.NameIdentifier);
                 if (id != null)
                 {
-                    return (T)Convert.ChangeType(id.Value, typeof(T), CultureInfo.InvariantCulture);
+                    ID = int.Parse(id.Value);
                 }
             }
-            return default(T);
+            return ID;
         }
 
         public static string GetUserRole(this IIdentity identity)
